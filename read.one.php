@@ -11,12 +11,28 @@ $db = $database->connect();
 $task = new Task($db);
 
 // Get ID
- $task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
+ $task->tag_id = isset($_GET['id']) ? $_GET['id'] : die();
+// // echo $task_id;
+//   // Get task$task
+//   print_r($task);
+//   $task->select_one();
+//   print_r($task);
 
-  // Get task$task
- 
+//   // Create array
+//   $tasks_arr = array(
+//     'task_id' => $task->task_id,
+//     'task_name' => $task->task_name,
+//   );
+//   print_r($tasks_arr);
+
+//   // Make JSON
+//   print_r(json_encode($tasks_arr));
+
+
+
   $result = $task->select_one();
   
+
   $num = $result->rowCount();
 
   // proverka dali ima task 
@@ -30,12 +46,13 @@ $task = new Task($db);
             extract($row);
 
             $task_item = array(
-                'id' => $id,
-                'task_id' => $task_id,
-                'task_name'=> $task_name,
-                'tag_name'=>$name
+                //'tag_id'=>$task->tag_id,
+                //'tag_name'=>$task->tag_name,
+                //'tag_name'=>$tag_name,
+                'task_name'=>$task_name,
+                'task_id'=>$task_id
             );
-
+// print_r($task_item);
 
             // Push to "data"
             array_push($tasks_arr, $task_item);
@@ -43,6 +60,18 @@ $task = new Task($db);
             }
 
             // Turn to JSON & output
-            echo json_encode($tasks_arr);
+           $tasktitle = array('tag_name'=>$task->tag_name,'tag_id'=>$task->tag_id,);
+            //echo $task->tag_name;
+// print_r ($tasktitle);
+  $result=array_merge($tasks_arr,$tasktitle);
+  $result2=asort($result);
+
+
+
+  //print_r(asort($result));
+            //echo json_ecnode ($tasktitle);
+            echo json_encode($result2);
+            //echo json_encode($tasks_arr);
+
 
   }

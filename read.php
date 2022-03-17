@@ -30,12 +30,12 @@ $database = new Dbh();
             );
 
 
-            // Push to "data"
+
             array_push($tasks_arr, $task_item);
-            // array_push($tasks_arr['data'], $task_item);
+
             }
 
-            // Turn to JSON & output
+
             echo json_encode($tasks_arr);
 
   } else {
