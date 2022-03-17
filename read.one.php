@@ -10,24 +10,12 @@ $db = $database->connect();
 
 $task = new Task($db);
 
-// Get ID
- $task->tag_id = isset($_GET['id']) ? $_GET['id'] : die();
-// // echo $task_id;
-//   // Get task$task
-//   print_r($task);
-//   $task->select_one();
-//   print_r($task);
-
-//   // Create array
-//   $tasks_arr = array(
-//     'task_id' => $task->task_id,
-//     'task_name' => $task->task_name,
-//   );
-//   print_r($tasks_arr);
-
-//   // Make JSON
-//   print_r(json_encode($tasks_arr));
-
+ //$task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
+$task->task_name ="To buy carrots";
+if (isset($task->task_name)){
+$task->select_task();
+echo "-------------------".$task->task_id;
+}
 
 
   $result = $task->select_one();
@@ -46,11 +34,13 @@ $task = new Task($db);
             extract($row);
 
             $task_item = array(
-                //'tag_id'=>$task->tag_id,
-                //'tag_name'=>$task->tag_name,
-                //'tag_name'=>$tag_name,
-                'task_name'=>$task_name,
-                'task_id'=>$task_id
+                
+
+                'task_name'=>$task->task_name,
+                'task_id'=>$task->task_id,
+                'tag_id'=>$id,
+                'tag_name'=>$name,
+                'tag_collor'=>$tag_color
             );
 // print_r($task_item);
 
@@ -70,8 +60,8 @@ $task = new Task($db);
 
   //print_r(asort($result));
             //echo json_ecnode ($tasktitle);
-            echo json_encode($result2);
-            //echo json_encode($tasks_arr);
+            //echo json_encode($result2);
+            echo json_encode($tasks_arr);
 
 
   }

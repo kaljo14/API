@@ -23,4 +23,33 @@ public function  select_all(){
         $stmt->execute();
         return $stmt;
     }
+public function select_one(){
+    $query ='SELECT name FROM tags WHERE id = ?;';
+    $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(1,$this->tag_id);
+        $stmt->execute();
+       $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+          // Set properties
+          $this->tag_name = $row['name'];
+
+
+    $query ='SELECT tasks.* 
+    FROM task_relationship 
+    JOIN tasks ON task_relationship.task_id = tasks.task_id
+     WHERE task_relationship.id = ?;';
+    
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->bindParam(1,$this->tag_id);
+        $stmt->execute();
+        
+        
+        
+
+
+        return $stmt;
+
+}
 }

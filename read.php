@@ -1,8 +1,10 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
+
 include 'Dbh.php';
 include 'model.task.php';
+
 $database = new Dbh();
   $db = $database->connect();
 
@@ -17,16 +19,18 @@ $database = new Dbh();
   if($num > 0) {
             
             $tasks_arr = array();
-            // $tasks_arr['data'] = array();
+           
 
             while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
             $task_item = array(
-                'id' => $id,
+                
                 'task_id' => $task_id,
                 'task_name'=> $task_name,
-                'tag_name'=>$name
+                'tag_id' => $id,
+                'tag_name'=>$name,
+                'tag_color'=>$tag_color
             );
 
 
