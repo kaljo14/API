@@ -25,8 +25,9 @@ $task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
             
             $tasks_arr = array();
             // $tasks_arr['data'] = array();
-
+            
             while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+
             extract($row);
 
             $task_item = array(
@@ -60,4 +61,16 @@ $task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
             echo json_encode($tasks_arr);
 
 
+  }
+  else{
+    if(isset($task->task_name)){
+        $tasks_arr=array(
+        'task_name'=>$task->task_name,
+        'task_id'=>$task->task_id,
+        'tag_name'=>null);
+        echo json_encode($tasks_arr);}
+        else{
+          echo json_encode(
+          array('message' => 'No Tasks Found '));
+        }
   }
