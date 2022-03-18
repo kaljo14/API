@@ -16,10 +16,10 @@ $task = new Task($DB);
 $info = json_decode(file_get_contents("php://input"));
 
 $task->task_name =$info->task_name;
-$task->tag_id=$info->tag_id;
 
-// if(isset($info->tag_id)){
-// $task->tag_id=$info->tag_id;}
+
+if(isset($info->tag_id)){
+$task->tag_id=$info->tag_id;}
 
 if($task->create()){
     echo json_encode(array('note'=>'Task Created'));
