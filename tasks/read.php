@@ -2,8 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-include 'Connection/Dbh.php';
-include 'models/model.task.php';
+include '../Connection/Dbh.php';
+include '../models/model.task.php';
 
 $database = new Dbh();
   $db = $database->connect();
