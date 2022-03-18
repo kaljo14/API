@@ -154,45 +154,77 @@ public function updateName(){
 
       return false;
     }
-
-
-public function updateTag(){
-    $query = 'UPDATE  tasks 
-    SET task_name = :task_name 
-    WHERE task_id =:task_id
+public function createTag(){
+    // NOT WORKING  FIX IF NEEDED 
+    $query = 'UPDATE  task_relationship
+        SET id =:tag_id
+        WHERE task_id =:task_id AND id=:changeTag;
     ';
     $stmt = $this->conn->prepare($query);
+    $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
+    //$this->task_id = htmlspecialchars(strip_tags($this->task_id));
 
-    $this->task_name = htmlspecialchars(strip_tags($this->task_name));
-    $this->task_id = htmlspecialchars(strip_tags($this->task_id));
-
-    $stmt->bindParam(':task_name', $this->task_name);
+    $stmt->bindParam(':tag_id', $this->tag_id);
     $stmt->bindParam(':task_id', $this->task_id);
+    $stmt->bindParam(':changeTag',$changeTag);
 
-    if($stmt->execute() ) {
-        if(isset($this->tag_id)){
-        $this->select_task();
+    if($stmt->execute()) {
+            return true;
+      }
+      printf("Error: %s.\n", $stmt->error);
 
-        $query = 'INSERT INTO  task_relationship
-        SET task_id = :task_id ,id =:tag_id';
-        $stmt = $this->conn->prepare($query);
-        $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
-        $stmt->bindParam(':task_id', $this->task_id);
-        $stmt->bindParam(':tag_id', $this->tag_id);
-        if($stmt->execute()) {
-                    return true;
-                }
-                else{
-                printf("Error: %s.\n", $stmt->error);
-                return false;}
-                }
-                return true;
-        
-    }else{
+      return false;
+
+}
+
+public function updateTag(){
     
-    printf("Error: %s.\n", $stmt->error);
+    $query = 'SELECT * From task_relationship WHERE task_id=:task_id LIMIT 0,1;';
+    $stmt = $this->conn->prepare($query);
+    $this->task_id = htmlspecialchars(strip_tags($this->task_id));
+    $stmt->bindParam(':task_id', $this->task_id);
+    $stmt->execute();
+    
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(isset($row['id'])){
+    $changeTag =$row['id'];}
+    
+    $query = 'UPDATE  task_relationship
+        SET id =:tag_id
+        WHERE task_id =:task_id AND id=:changeTag;
+    ';
+    $stmt = $this->conn->prepare($query);
+    $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
+    //$this->task_id = htmlspecialchars(strip_tags($this->task_id));
 
-      return false;}}
+    $stmt->bindParam(':tag_id', $this->tag_id);
+    $stmt->bindParam(':task_id', $this->task_id);
+    $stmt->bindParam(':changeTag',$changeTag);
+
+    if($stmt->execute()) {
+            return true;
+      }
+      printf("Error: %s.\n", $stmt->error);
+
+      return false;
+    }
+public function delete(){
+
+    $query = 'DELETE FROM tasks WHERE task_id = :task_id';
+    $stmt = $this->conn->prepare($query);
+
+    $this->task_id = htmlspecialchars(strip_tags($this->task_id));
+    $stmt->bindParam(':task_id', $this->task_id);
+    if($stmt->execute()) {
+            return true;
+      }
+      printf("Error: %s.\n", $stmt->error);
+
+      return false;
+
+
+
+}
 
 }
 
