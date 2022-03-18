@@ -10,12 +10,8 @@ $db = $database->connect();
 
 $task = new Task($db);
 
- //$task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
-$task->task_name ="To buy carrots";
-if (isset($task->task_name)){
-$task->select_task();
-echo "-------------------".$task->task_id;
-}
+$task->task_id = isset($_GET['id']) ? $_GET['id'] : die();
+
 
 
   $result = $task->select_one();
