@@ -6,8 +6,8 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods');
 
-include 'Dbh.php';
-include 'model.task.php';
+include 'Connection/Dbh.php';
+include 'models/model.task.php';
 $database = new Dbh();
 $DB = $database->connect();
 

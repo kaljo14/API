@@ -3,8 +3,8 @@ ini_set("display_errors", "1");
   error_reporting(E_ALL);
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-include 'Dbh.php';
-include 'model.task.php';
+include 'Connection/Dbh.php';
+include 'models/model.task.php';
 $database = new Dbh();
 $db = $database->connect();
 
