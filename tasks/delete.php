@@ -14,9 +14,15 @@ $DB = $database->connect();
 
 $task = new Task($DB);
 
-$info = json_decode(file_get_contents("php://input"));
+$info = json_decode(file_get_contents("php://input"),true);
+    //echo json_encode($info);
+    print_r($info);
+//  echo $info[0]["task_id"];
 
-$task->task_id =$info->task_id;
+ for($i=0;$i<sizeof($info);$i++){
+if($info[$i]["task_id"]){
+$task->task_id =$info[$i]["task_id"];
+
 
 if($task->delete()){
     echo json_encode(array('note'=>'Task Deleted'));
@@ -24,4 +30,9 @@ if($task->delete()){
 else{
     echo json_encode(array('note'=>'Task  Not Deleted'));}
 
+}
+else{
+      echo json_encode(array('note'=>'No task ID  added not possible to delete a task'));
 
+}
+}

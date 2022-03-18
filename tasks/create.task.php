@@ -14,7 +14,7 @@ $DB = $database->connect();
 $task = new Task($DB);
 
 $info = json_decode(file_get_contents("php://input"));
-
+if(isset($info->task_name)){
 $task->task_name =$info->task_name;
 
 
@@ -26,5 +26,8 @@ if($task->create()){
 }
 else{
     echo json_encode(array('note'=>'Task  Not Created'));}
-
+}
+else{
+  echo json_encode(array('note'=>'No name added not possible to create a task'));
+}
 
