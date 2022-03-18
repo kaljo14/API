@@ -16,14 +16,14 @@ $task = new Task($DB);
 $info = json_decode(file_get_contents("php://input"));
 
 
-$task->task_id=$info->task_id;
- if(isset($info->tag_name)){
-    $task->tag_name=$info->tag_name;
-    if($task->updateName()){
-        echo json_encode(array('note'=>'Post Updated'));
-    }
-    else{
-        echo json_encode(array('note'=>'Post Updated'));}
-    }
+    $task->task_id =$info->task_id;
+    $task->task_name=$info->task_name;
+
+        if($task->updateName()){
+            echo json_encode(array('note'=>'Post Updated'));
+        }
+        else{
+            echo json_encode(array('note'=>'Post Updated'));}
+        
 
 
