@@ -2,7 +2,7 @@
 class Task {
 
     private $conn;
-    private $table='tasks' ;
+    
     public $tag_id;
     public $tag_name;
     public $task_id;

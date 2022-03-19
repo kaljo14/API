@@ -1,38 +1,45 @@
 <?php
 class Tags{
-private $id;
-private $name;
-private $tag_color;
-private $table ='tags';
+private $conn;
+public $tag_id;
+public $tag_name;
+public $tag_color;
+public $task_name;
+public $task_id;
+
 
 public function __construct($db){
     $this->conn =$db;
 }
 public function  select_all(){
 
-        $query ='SELECT 
-        ts.task_id,
-        ts.task_name,
+        $query ='SELECT ts.task_id,
+        ts.task_name, 
         tg.name,
-        tg.id
-        FROM tasks ts 
-        JOIN task_relationship tsr ON ts.task_id = tsr.task_id 
-        JOIN tags tg ON tsr.id=tg.id;
+        tg.id,
+        tg.tag_color
+        FROM tags tg 
+        LEFT JOIN task_relationship tsr ON tg.id = tsr.id 
+        LEFT JOIN tasks ts ON tsr.task_id=ts.task_id 
+        ORDER BY id;
         ';
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 public function select_one(){
-    $query ='SELECT name FROM tags WHERE id = ?;';
+
+    $query ='SELECT * FROM tags WHERE id = ?;';
     $stmt = $this->conn->prepare($query);
         
-        $stmt->bindParam(1,$this->tag_id);
-        $stmt->execute();
-       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-          // Set properties
-          $this->tag_name = $row['name'];
+    $stmt->bindParam(1,$this->tag_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if(isset($row['name'])){
+    $this->tag_name = $row['name'];
+    $this->tag_color = $row['tag_color'];
+}
 
 
     $query ='SELECT tasks.* 
@@ -44,12 +51,7 @@ public function select_one(){
         
         $stmt->bindParam(1,$this->tag_id);
         $stmt->execute();
-        
-        
-        
-
-
-        return $stmt;
+       return $stmt;
 
 }
 }
