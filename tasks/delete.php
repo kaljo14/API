@@ -16,7 +16,7 @@ $task = new Task($DB);
 
 $info = json_decode(file_get_contents("php://input"),true);
     //echo json_encode($info);
-    print_r($info);
+    //print_r($info);
 //  echo $info[0]["task_id"];
 
  for($i=0;$i<sizeof($info);$i++){
