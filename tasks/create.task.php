@@ -14,7 +14,7 @@ $DB = $database->connect();
 $task = new Task($DB);
 
 $info = json_decode(file_get_contents("php://input"));
-
+try{
 
  for($i=0;$i<sizeof($info);$i++){
   if(isset($info[$i]->task_name)){
@@ -35,5 +35,26 @@ $info = json_decode(file_get_contents("php://input"));
   
   
 }  
+}
+catch(TypeError){
+
+  if(isset($info->task_name)){
+    $task->task_name =$info->task_name;
+    if($task->create_name()){echo json_encode(array('note'=>'Task Created'));
+      if(isset($info->tag_id)){
+        $task->tag_id=$info->tag_id;
+        if($task->create_tag()){echo json_encode(array('note'=>'Tag Created'));}
+        else{echo json_encode(array('note'=>'Task '.$task->tag_name.'does not exists'));}
+  }
+    }
+    else{echo json_encode(array('note'=>'Task '.$task->task_name.' Not Created already exists at task_id '.$task->task_id));
+
+  }
+  }
+  else{echo json_encode(array('note'=>'No name added not possible to create a task'));}
+  
+
+}
+
 
  

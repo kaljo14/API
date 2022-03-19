@@ -107,7 +107,7 @@ public function select_one(){
 
         return $stmt;
 }
-public function check_duplicate(){
+public function check_duplicate_task_id(){
     $this->task_id=null;
     $query ='SELECT task_name,task_id FROM tasks WHERE task_name=:task_name';
     $stmt = $this->conn->prepare($query);
@@ -127,7 +127,7 @@ public function check_duplicate(){
     
 }
 public function create_name(){
-    $this->check_duplicate();
+    $this->check_duplicate_task_id();
     //print_r($this);
     
     if(isset($this->task_id)){return false;}
@@ -144,8 +144,28 @@ public function create_name(){
         return false;
     }
 }
+public function check_duplicate_name(){
+
+    $query ='SELECT task_name,task_id FROM tasks WHERE task_name=:task_name';
+    $stmt = $this->conn->prepare($query);
+    $this->task_name = htmlspecialchars(strip_tags($this->task_name));
+    $stmt->bindParam(':task_name', $this->task_name);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if (isset($row['task_id'])){
+        return $row['task_id'];
+    }
+     
+}
     
 public function updateName(){
+    $ifExists=$this->check_duplicate_name();
+    //print_r($ifExists);
+
+    if(isset($ifExists)){return false;}
+
     $query = 'UPDATE  tasks 
     SET task_name = :task_name 
     WHERE task_id =:task_id
@@ -166,10 +186,10 @@ public function updateName(){
       return false;
     }
 public function create_tag(){
-    // NOT WORKING  FIX IF NEEDED 
+    
     $this->select_tag();
     $this->select_task();
-   // print_r($this);
+
     if(isset($this->tag_id) && isset($this->task_id)){
         
 
