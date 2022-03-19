@@ -114,53 +114,47 @@ public function check_duplicate(){
 
 
     if (isset($row['task_id'])){
-        $this->thask_id=$row['task_id'];
+        $this->task_id=$row['task_id'];
 
     }
-
+    return $stmt;
 
     
 }
 public function create(){
     $this->check_duplicate();
-    print_r($this);
-    if(!isset($this->task_id)){echo"--------------------";
-    return false;}
-            $query = 'INSERT INTO  tasks 
-            SET task_name = :task_name ';
-            $stmt = $this->conn->prepare($query);
-            $this->task_name = htmlspecialchars(strip_tags($this->task_name));
-            $stmt->bindParam(':task_name', $this->task_name);
-            if($stmt->execute() ) {
-                if (isset($this->tag_id)){
-                    $this->select_tag();
-                    
-                if(isset($this->tag_id)){
-                $this->select_task();
-            
-                $query = 'INSERT INTO  task_relationship
-                SET task_id = :task_id ,id =:tag_id';
-                $stmt = $this->conn->prepare($query);
-                $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
-                $stmt->bindParam(':task_id', $this->task_id);
-                $stmt->bindParam(':tag_id', $this->tag_id);
-                if($stmt->execute()) {
-                            return true;
-                        }
-                        else{
-                        printf("Error: %s.\n", $stmt->error);
-                        return false;}
-                        }
-                        else {echo json_encode(array ('note'=> 'Tag not created not available in the database'));}
-                    }
-                        return true;
-                
-            }else{
-            
-            printf("Error: %s.\n", $stmt->error);
+    //print_r($this);
+    if(isset($this->task_id)){return false;}
 
-            return false;}
-        }
+    $query = 'INSERT INTO  tasks 
+    SET task_name = :task_name ';
+    $stmt = $this->conn->prepare($query);
+    $this->task_name = htmlspecialchars(strip_tags($this->task_name));
+    $stmt->bindParam(':task_name', $this->task_name);
+    if($stmt->execute() ) {
+        if(isset($this->tag_id)){
+        $this->select_task();
+
+        $query = 'INSERT INTO  task_relationship
+        SET task_id = :task_id ,id =:tag_id';
+        $stmt = $this->conn->prepare($query);
+        $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
+        $stmt->bindParam(':task_id', $this->task_id);
+        $stmt->bindParam(':tag_id', $this->tag_id);
+        if($stmt->execute()) {
+                    return true;
+                }
+                else{
+                printf("Error: %s.\n", $stmt->error);
+                return false;}
+                }
+                return true;
+        
+    }else{
+    
+    printf("Error: %s.\n", $stmt->error);
+
+      return false;}}
     
 public function updateName(){
     $query = 'UPDATE  tasks 
