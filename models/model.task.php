@@ -21,9 +21,12 @@ public function  select_task(){
         $stmt->execute();
          $row = $stmt->fetch(PDO::FETCH_ASSOC);
         //$this->task_id =$row['task_id'];
-        $this->task_id = $row['task_id'];
+        if(isset($row['task_id'])){
+            //print_r($row);
+            $this->task_id = $row['task_id'];
+        }
         return $stmt;
-    }
+}
 public function  select_tag(){
 
         $query ='SELECT id,name FROM tags WHERE id= ?;
@@ -105,6 +108,7 @@ public function select_one(){
         return $stmt;
 }
 public function check_duplicate(){
+    $this->task_id=null;
     $query ='SELECT task_name,task_id FROM tasks WHERE task_name=:task_name';
     $stmt = $this->conn->prepare($query);
     $this->task_name = htmlspecialchars(strip_tags($this->task_name));
@@ -117,13 +121,15 @@ public function check_duplicate(){
         $this->task_id=$row['task_id'];
 
     }
+    
     return $stmt;
 
     
 }
-public function create(){
+public function create_name(){
     $this->check_duplicate();
     //print_r($this);
+    
     if(isset($this->task_id)){return false;}
 
     $query = 'INSERT INTO  tasks 
@@ -131,30 +137,13 @@ public function create(){
     $stmt = $this->conn->prepare($query);
     $this->task_name = htmlspecialchars(strip_tags($this->task_name));
     $stmt->bindParam(':task_name', $this->task_name);
-    if($stmt->execute() ) {
-        if(isset($this->tag_id)){
-        $this->select_task();
-
-        $query = 'INSERT INTO  task_relationship
-        SET task_id = :task_id ,id =:tag_id';
-        $stmt = $this->conn->prepare($query);
-        $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
-        $stmt->bindParam(':task_id', $this->task_id);
-        $stmt->bindParam(':tag_id', $this->tag_id);
-        if($stmt->execute()) {
-                    return true;
-                }
-                else{
-                printf("Error: %s.\n", $stmt->error);
-                return false;}
-                }
-                return true;
-        
-    }else{
     
-    printf("Error: %s.\n", $stmt->error);
-
-      return false;}}
+    if($stmt->execute() ) {return true;}
+    else{
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+}
     
 public function updateName(){
     $query = 'UPDATE  tasks 
@@ -176,26 +165,27 @@ public function updateName(){
 
       return false;
     }
-public function createTag(){
+public function create_tag(){
     // NOT WORKING  FIX IF NEEDED 
-    $query = 'UPDATE  task_relationship
-        SET id =:tag_id
-        WHERE task_id =:task_id AND id=:changeTag;
-    ';
-    $stmt = $this->conn->prepare($query);
-    $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
-    //$this->task_id = htmlspecialchars(strip_tags($this->task_id));
+    $this->select_tag();
+    $this->select_task();
+   // print_r($this);
+    if(isset($this->tag_id) && isset($this->task_id)){
+        
 
-    $stmt->bindParam(':tag_id', $this->tag_id);
-    $stmt->bindParam(':task_id', $this->task_id);
-    $stmt->bindParam(':changeTag',$changeTag);
+            $query = 'INSERT INTO  task_relationship
+            SET task_id = :task_id ,id =:tag_id';
+            $stmt = $this->conn->prepare($query);
+            $this->tag_id = htmlspecialchars(strip_tags($this->tag_id));
+            $stmt->bindParam(':task_id', $this->task_id);
+            $stmt->bindParam(':tag_id', $this->tag_id);
+            if($stmt->execute()) {return true;}
+            else{
+                printf("Error: %s.\n", $stmt->error);
+                return false;}
+        }
 
-    if($stmt->execute()) {
-            return true;
-      }
-      printf("Error: %s.\n", $stmt->error);
-
-      return false;
+    return true;
 
 }
 

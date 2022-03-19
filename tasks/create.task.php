@@ -17,23 +17,23 @@ $info = json_decode(file_get_contents("php://input"));
 
 
  for($i=0;$i<sizeof($info);$i++){
-if(isset($info[$i]->task_name)){
-$task->task_name =$info[$i]->task_name;
+  if(isset($info[$i]->task_name)){
+    $task->task_name =$info[$i]->task_name;
+    if($task->create_name()){echo json_encode(array('note'=>'Task Created'));
+      if(isset($info[$i]->tag_id)){
+        $task->tag_id=$info[$i]->tag_id;
+        if($task->create_tag()){echo json_encode(array('note'=>'Tag Created'));}
+        else{echo json_encode(array('note'=>'Task '.$task->tag_name.'does not exists'));}
+  }
+    }
+    else{echo json_encode(array('note'=>'Task '.$task->task_name.' Not Created already exists at task_id '.$task->task_id));
 
+  }
+  }
+  else{echo json_encode(array('note'=>'No name added not possible to create a task'));}
+  
+  
+  
+}  
 
-
-if(isset($info[$i]->tag_id)){
-$task->tag_id=$info[$i]->tag_id;}
-
-if($task->create()){
-    echo json_encode(array('note'=>'Task Created'));
-}
-else{
-    echo json_encode(array('note'=>'Task '.$task->task_name.' Not Created May already exist at task_id '.$task->task_id));
-
-}
-}
-else{
-    echo json_encode(array('note'=>'No name added not possible to create a task'));}
-}
  
