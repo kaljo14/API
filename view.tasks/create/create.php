@@ -1,5 +1,5 @@
 <?php
-
+require "../../include/header.html" ;
 
 $create['task_name']=$_POST['task_name'];
 $create['tag_id']=$_POST['tag_id'];
@@ -18,19 +18,14 @@ curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 $resp = curl_exec($ch);
 $data =json_decode($resp,true);
 curl_close($ch);
-?>
 
-<?php 
-if(isset($data['note'])){echo $data['note'];}
+if(isset($data['note'])){
+     $error=$data['note'];
+    header("Location: view.php?error=$error");
+}
 
-?>
 
-<?php
-require "../../include/header.html" ;
-?>
- 
 
-    <a href="../tasks.php">Back To Task Options</a><br>
-    <a href="../../index.php">Back To Options Menu</a>
+
     
-<?php require "../../include/footer.html" ?>
+ require "../../include/footer.html" ?>
