@@ -1,10 +1,11 @@
 <?php require "include/header.html" ?>
 
 <h1>Tasks</h1>
-<a href="read.all.php">View All</a>
-<a href="read.one/view.php">View One</a>
-<!-- <a href="front.php">Create</a>
-<a href="front.php">Update</a>
-<a href="front.php">Delete</a> -->
-
+<ul>
+   <li> <a href="read.all.php">View All</a></li>
+    <li><a href="read.one/view.php">View One</a></li>
+   <li> <a href="create/view.php">Create</a></li>
+   <li> <a href="update/view.php">Update</a></li>
+   <li> <a href="delete/view.delete.php">Delete</a></li>
+</ul>
 <?php require "include/footer.html" ?>

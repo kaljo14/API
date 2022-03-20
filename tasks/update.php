@@ -23,7 +23,7 @@ for($i=0;$i<sizeof($info);$i++){
 
     $task->task_name=$info[$i]->task_name;
     if($task->updateName()){
-        echo json_encode(array('note'=>'Name Updated'));
+       $note_arr=array('note'=>'Name Updated');
     }
     else{
         echo json_encode(array('note'=>'Name Not Updated Already Exists'));}
@@ -32,11 +32,14 @@ for($i=0;$i<sizeof($info);$i++){
     if(isset($info[$i]->tag_id)){
         $task->tag_id=$info[$i]->tag_id;
         if($task->updateTag()){
-            echo json_encode(array('note'=>'Tag Updated'));
+            if(isset($note_arr['note'])){
+                $note_arr['note']= $note_arr['note'].' And Tag Updated';}
         }
         else{
             echo json_encode(array('note'=>'Tag Not Updated'));}
         }
+        if(isset($note_arr))
+        echo json_encode($note_arr);
     }
     else {echo json_encode(array('note'=>'Task ID not given can not preform update '));}
  }
@@ -46,25 +49,29 @@ catch(TypeError){
     
  if (isset($info->task_id)){
     $task->task_id =$info->task_id;
-    if(isset($info->task_name)){
+        if(isset($info->task_name)){
 
 
-    $task->task_name=$info->task_name;
-    if($task->updateName()){
-        echo json_encode(array('note'=>'Name Updated'));
-    }
-    else{
-        echo json_encode(array('note'=>'Name Not Updated Already Exists'));}
-    }
-
-    if(isset($info->tag_id)){
-        $task->tag_id=$info->tag_id;
-        if($task->updateTag()){
-            echo json_encode(array('note'=>'Tag Updated'));
+        $task->task_name=$info->task_name;
+        if($task->updateName()){
+            $note_arr=array('note'=>'Name Updated');
         }
         else{
-            echo json_encode(array('note'=>'Tag Not Updated'));}
+            echo json_encode(array('note'=>'Name Not Updated Already Exists'));}
         }
+
+        if(isset($info->tag_id)){
+            $task->tag_id=$info->tag_id;
+            if($task->updateTag()){
+                if(isset($note_arr['note'])){
+                $note_arr['note']= $note_arr['note'].' And Tag Updated';}
+
+            }
+            else{
+                echo json_encode(array('note'=>'Tag Not Updated'));}
+            }
+        if(isset($note_arr))
+    echo json_encode($note_arr);
     }
     else {echo json_encode(array('note'=>'Task ID not given can not preform update '));}
      
