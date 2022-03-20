@@ -30,7 +30,7 @@ if($num > 0) {
       'task_id'=>$task->task_id,
         'tag_id'=>$id,
       'tag_name'=>$name,
-      'tag_collor'=>$tag_color
+      'tag_color'=>$tag_color
     );
     array_push($tasks_arr, $task_item);
   }
