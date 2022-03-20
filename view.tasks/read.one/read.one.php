@@ -1,4 +1,5 @@
 <?php
+require "../../include/header.html" ;
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
 $full_name ="read.one.php?id=".$_POST['task_id'];
@@ -19,20 +20,25 @@ $data =json_decode($resp,true);
 
 
 curl_close($ch);?>
-<?php if(isset($data['message'])){echo $data['message'];}
+<?php if(isset($data['message'])){
+   $error=$data['message'];
+    header("Location: view.php?error=$error");
+}
 else{?>
 
-<?php
-require "../include/header.html" ;
-?>
+
 
 <h1>View One Tasks</h1>
     
+ 
+    <p>
+        Task Name:  <?= htmlspecialchars($data[0]["task_name"]) ?>&emsp;&emsp;
+        Task ID:  <?= htmlspecialchars($data[0]["task_id"]) ?> </p>
+
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                
                 <th>Tag ID</th>
                 <th>Tag Name</th>
                 <th>Tag Color</th>
@@ -43,11 +49,12 @@ require "../include/header.html" ;
             <?php foreach ($data as $value): ?>
                 
                 <tr>
-                    <td><?= htmlspecialchars($value["task_id"]) ?></td>
-                    <td><?= htmlspecialchars($value["task_name"]) ?></td>
+
+
                     <td><?= htmlspecialchars($value["tag_id"]) ?></td>
                     <td><?= htmlspecialchars($value["tag_name"]) ?></td>
-                    <td><?= htmlspecialchars($value["tag_color"]) ?></td>
+                    <?php if(isset($data[0]["tag_color"])){ ?>
+                    <td><?= htmlspecialchars($value["tag_color"]) ?></td><?php } ?>
 
                 </tr>
                 
@@ -56,7 +63,9 @@ require "../include/header.html" ;
         </tbody>
     </table>
     
-    <a href="../index.php">Back</a>
     
-<?php require "../include/footer.html" ?>
+    <a href="../tasks.php">Back To Task Options</a><br>
+    <a href="../../index.php">Back To Options Menu</a>
+    
+<?php require "../../include/footer.html" ?>
 <?php }?>

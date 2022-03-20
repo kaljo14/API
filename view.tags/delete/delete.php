@@ -1,8 +1,8 @@
 <?php
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
-
-$delete['task_id']=$_POST['task_id'];
+require "../../include/header.html" ;
+$delete['tag_id']=$_POST['tag_id'];
 
 
 
@@ -10,7 +10,7 @@ $data=json_encode($delete);
 
 
 $ch=curl_init();
-$url="http://localhost/API/tasks/delete.php";
+$url="http://localhost/API/tags/delete.php";
 
 curl_setopt($ch,CURLOPT_URL,$url);
 curl_setopt($ch,CURLOPT_POST,true);
@@ -22,13 +22,9 @@ $data =json_decode($resp,true);
 curl_close($ch);
 ?>
 
-<?php if(isset($data['note'])){echo $data['note'];}
-?>
-
-<?php
-require "../include/header.html" ;
-?>
- 
-<a href="../index.php">Back</a>
+<?php if(isset($data['note'])){
     
-<?php require "../include/footer.html" ?>
+    $error=$data['note'];
+    header("Location: view.php?error=$error");
+}
+require "../../include/footer.html" ?>

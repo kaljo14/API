@@ -1,6 +1,6 @@
 
 <?php
-require "../include/header.html" ;
+require "../../include/header.html" ;
 ?>
 
 <h1>View one task</h1>
@@ -17,6 +17,8 @@ require "../include/header.html" ;
     </form>
               
     
-    <a href="../index.php">Back</a>
-    <?php require "../include/footer.html" ;
+  
+    <a href="../tasks.php">Back To Task Options</a><br><br>
+    <a href="../../index.php">Back To Options Menu</a>
+    <?php require "../../include/footer.html" ;
     ?>

@@ -22,7 +22,7 @@ if($num > 0) {
         $tag_item = array(
            'tag_name'=>$tag->tag_name,
              'tag_id'=>$tag->tag_id,
-             'tag_collor'=>$tag->tag_color,
+             'tag_color'=>$tag->tag_color,
              'task_id'=>$task_id,
              'task_name'=>$task_name
              

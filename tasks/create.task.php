@@ -14,10 +14,14 @@ $DB = $database->connect();
 $task = new Task($DB);
 
 $info = json_decode(file_get_contents("php://input"));
+
 try{
 
+
  for($i=0;$i<sizeof($info);$i++){
-  if(isset($info[$i]->task_name)){
+   if(!$info[$i]->task_name ==""){
+
+  if(isset($info[$i]->task_name ) ){
     $task->task_name =$info[$i]->task_name;
     if($task->create_name()){$note_arr=array('note'=>'Task Created');
       if(isset($info[$i]->tag_id)){
@@ -34,12 +38,12 @@ try{
    if(isset($note_arr))
   echo json_encode($note_arr);
   
-  
+} 
 }  
 }
 catch(TypeError){
-
-  if(isset($info->task_name)){
+if($info->task_name ==""){
+  if(!isset($info->task_name )){
     $task->task_name =$info->task_name;
     if($task->create_name()){$note_arr=array('note'=>'Task Created');
       if(isset($info->tag_id)){
@@ -56,6 +60,7 @@ catch(TypeError){
   }
   else{echo json_encode(array('note'=>'No name added not possible to create a task'));}
 
+}
 }
 
 

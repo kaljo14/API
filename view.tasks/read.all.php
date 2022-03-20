@@ -15,7 +15,7 @@ $resp = curl_exec($ch);
    
 
 curl_close($ch);
-require "include/header.html" ;
+require "../include/header.html" ;
 ?>
  <h1>Tasks</h1>
     
@@ -46,6 +46,9 @@ require "include/header.html" ;
         </tbody>
     </table>
     
-    <a href="index.php">Back</a>
     
-<?php require "include/footer.html" ?>
+    <a href="tasks.php">Back To Task Options</a>
+    <br>
+    <a href="../index.php">Back To Options Menu</a>
+    
+<?php require "../include/footer.html" ?>
