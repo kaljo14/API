@@ -118,4 +118,43 @@ public function delete(){
 
 
 }
+public function check_duplicate_name_update(){
+    $query ='SELECT name,id FROM tags WHERE name=:tag_name;';
+    $stmt = $this->conn->prepare($query);
+    $this->tag_name = htmlspecialchars(strip_tags($this->tag_name));
+    $stmt->bindParam(':tag_name', $this->tag_name);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if (isset($row['id'])){
+    return $row['id'];
+    }
+}
+ public function update_name(){
+      $ifExists=$this->check_duplicate_name();
+    //print_r($ifExists);
+
+    if(isset($ifExists)){return false;}
+
+    $query = 'UPDATE  tags 
+    SET name = :tag_name 
+    WHERE id =:tag_id
+    ';
+    $stmt = $this->conn->prepare($query);
+
+    $this->task_name = htmlspecialchars(strip_tags($this->tag_name));
+    $this->task_id = htmlspecialchars(strip_tags($this->tag_id));
+
+    $stmt->bindParam(':tag_name', $this->tag_name);
+    $stmt->bindParam(':tag_id', $this->tag_id);
+
+     if($stmt->execute()) {
+            return true;
+      }
+      printf("Error: %s.\n", $stmt->error);
+
+      return false;
+ }
+
 }

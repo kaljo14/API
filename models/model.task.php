@@ -107,7 +107,7 @@ public function select_one(){
 
         return $stmt;
 }
-public function check_duplicate_task_id(){
+public function check_duplicate_task_name_id(){
     $this->task_id=null;
     $query ='SELECT task_name,task_id FROM tasks WHERE task_name=:task_name';
     $stmt = $this->conn->prepare($query);
@@ -127,7 +127,7 @@ public function check_duplicate_task_id(){
     
 }
 public function create_name(){
-    $this->check_duplicate_task_id();
+    $this->check_duplicate_task_name_id();
     //print_r($this);
     
     if(isset($this->task_id)){return false;}
