@@ -132,7 +132,7 @@ public function check_duplicate_name_update(){
     }
 }
  public function update_name(){
-      $ifExists=$this->check_duplicate_name();
+      $ifExists=$this->check_duplicate_name_update();
     //print_r($ifExists);
 
     if(isset($ifExists)){return false;}
