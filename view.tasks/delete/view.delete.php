@@ -1,24 +1,11 @@
 <?php
 require "../../include/header.html" ;
-if (!isset($_GET['error'])){
-                 
-                 exit();
-             }
-             else{
-                 $singupCheck = $_GET['error'];
-                 if(isset($singupCheck )){
-                  echo $singupCheck;
-                    
-                    }
-                    elseif($singupCheck == 'char'){
-                        echo "<p class = 'error' > Please entere only characters as your name!<p>";
-                        exit();
-                    }
-                    elseif($singupCheck == 'success'){
-                        echo "<p class = 'success' > You have added the item successfuly!<p>";
-                        exit();
-                    }
-             }
+if (isset($_GET['error'])){
+  $singupCheck = $_GET['error'];
+  if(isset($singupCheck )){
+    echo $singupCheck;
+  }
+}
 ?>
 
 <h1> Delete task</h1>

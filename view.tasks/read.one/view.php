@@ -1,6 +1,12 @@
 
 <?php
 require "../../include/header.html" ;
+if (isset($_GET['error'])){
+  $singupCheck = $_GET['error'];
+  if(isset($singupCheck )){
+    echo $singupCheck;
+  }
+}
 ?>
 
 <h1>View one task</h1>

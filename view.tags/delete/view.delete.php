@@ -1,16 +1,11 @@
 <?php
 require "../../include/header.html" ;
-if (!isset($_GET['error'])){
-                 
-                 exit();
-             }
-             else{
-                 $singupCheck = $_GET['error'];
-                 if(isset($singupCheck )){
-                  echo $singupCheck;
-                    
-                    }
-            }
+if (isset($_GET['error'])){
+  $singupCheck = $_GET['error'];
+  if(isset($singupCheck )){
+    echo $singupCheck;
+  }
+}
 ?>
 
 <h1> Delete Tag</h1>
