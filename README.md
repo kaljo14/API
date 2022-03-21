@@ -1,6 +1,7 @@
 # API
 
 API for shopping tasks
+<<<<<<< HEAD
 reated Kaloyan Ivanov
 
 ## Description
@@ -19,4 +20,8 @@ For example, we might have the following list of tasks:
 - To buy tomatoes
 - To buy celery
 - To buy laundry detergent
-- To buy toilet paper
+- # To buy toilet paper
+
+Created by Kaloyan Ivanov
+
+> > > > > > > 11ba0347274421befff3fa7c739d3345e14d0b00
