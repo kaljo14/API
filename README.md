@@ -1,3 +1,3 @@
 # API
-API for shoping tasks
+API for shopping tasks
 created Kaloyan Ivanov
