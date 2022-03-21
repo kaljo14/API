@@ -1,16 +1,12 @@
-# API
+# API for shopping tasks
 
-API for shopping tasks
-<<<<<<< HEAD
-reated Kaloyan Ivanov
-
-## Description
+# Description
 
 ---
 
 cURL CRUD Example ,CRUD methods,Many To Many relationship, Built with PHP & MySQL
 
-## Project Requirements:
+# Project Requirements:
 
 ---
 
