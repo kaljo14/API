@@ -6,14 +6,18 @@ reated Kaloyan Ivanov
 
 ## Description
 
+---
+
 cURL CRUD Example ,CRUD methods,Many To Many relationship, Built with PHP & MySQL
 
 ## Project Requirements:
 
-The goal is to make two resources to be fed through the API, respectively one resource for tasks and one resource for tags.
-A task is something that needs to be done, and `tags` can be taken as a way to categorize `tasks`.
+---
 
-#####For example, we might have the following list of tasks:
+The goal is to make two resources to be fed through the API, respectively one resource for tasks and one resource for tags.
+A task is something that needs to be done, and `tags`git a can be taken as a way to categorize `tasks`.
+
+##### For example, we might have the following list of tasks:
 
 - To buy milk
 - To buy cheese
@@ -28,6 +32,8 @@ A task is something that needs to be done, and `tags` can be taken as a way to c
 - Tasks 5 and 6 will have the tag "Sanitary products"
 
 ### Requirements:
+
+---
 
 ##### Resource requirements for `tasks`
 
@@ -46,5 +52,7 @@ A task is something that needs to be done, and `tags` can be taken as a way to c
 - Create one new tag or several new tags at a time
 - Change the name and/or colour of one tag or several tags at a time
 - Delete one tag or multiple tags at a time
+
+---
 
 Created by Kaloyan Ivanov
