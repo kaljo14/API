@@ -11,7 +11,7 @@ cURL CRUD Example ,CRUD methods,Many To Many relationship, Built with PHP & MySQ
 ## Project Requirements:
 
 The goal is to make two resources to be fed through the API, respectively one resource for tasks and one resource for tags.
-A task is something that needs to be done, and 'tags' can be taken as a way to categorize 'tasks'.
+A task is something that needs to be done, and `tags` can be taken as a way to categorize `tasks`.
 
 #####For example, we might have the following list of tasks:
 
@@ -27,9 +27,9 @@ A task is something that needs to be done, and 'tags' can be taken as a way to c
 - Tasks 3 and 4 will also have a tag " Vegetables "
 - Tasks 5 and 6 will have the tag "Sanitary products"
 
-###Requirements:
+### Requirements:
 
-#####Resource requirements for 'tasks'
+##### Resource requirements for `tasks`
 
 - Each task has a name and zero or an indeterminate number of tags attached to it
 - The resource must have the following capabilities
@@ -38,7 +38,7 @@ A task is something that needs to be done, and 'tags' can be taken as a way to c
 - Change the name and/or tags of one task or several tasks at a time
 - Delete one task or several tasks at a time
 
-#####Resource requirements for 'tags'
+##### Resource requirements for `tags`
 
 - Each tag has a name and a colour
 - The resource must have the following capabilities
