@@ -1,6 +1,7 @@
 <?php
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
+require "../include/header.html" ;
 
 $ch=curl_init();
 $url="http://localhost/API/tags/read.all.php";
@@ -15,7 +16,22 @@ $resp = curl_exec($ch);
    
 
 curl_close($ch);
-require "../include/header.html" ;
+
+for($i=0;$i<sizeof($data);$i++){
+ 
+if(isset($data[$i]) && isset($data[$i+1])){
+if($data[$i]['tag_name'] == $data[$i]['tag_name']){
+    
+    $data[$i+1]['task_id']= $data[$i+1]['task_id'] .",   ". $data[$i]['task_id'];
+    $data[$i+1]['task_name']= $data[$i+1]['task_name'] .",   ". $data[$i]['task_name'];
+
+    unset($data[$i]);
+    
+}
+}
+
+}
+
 ?>
  <h1>All Tags </h1>
     
