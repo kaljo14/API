@@ -11,7 +11,7 @@ cURL CRUD Example ,CRUD methods,Many To Many relationship, Built with PHP & MySQ
 ---
 
 The goal is to make two resources to be fed through the API, respectively one resource for tasks and one resource for tags.
-A task is something that needs to be done, and `tags`git a can be taken as a way to categorize `tasks`.
+A task is something that needs to be done, and `tags` it a can be taken as a way to categorize `tasks`.
 
 ##### For example, we might have the following list of tasks:
 
@@ -21,7 +21,7 @@ A task is something that needs to be done, and `tags`git a can be taken as a way
 - To buy celery
 - To buy laundry detergent
 - To buy toilet paper
-  #####Under these conditions, I will have the following distribution respectively:
+  ##### Under these conditions, I will have the following distribution respectively:
 - Tasks 1, 2, 3, 4 will have the tag "Food products".
 - Tasks 1 and 2 will also have the tag "Dairy products"
 - Tasks 3 and 4 will also have a tag " Vegetables "
