@@ -51,4 +51,22 @@ A task is something that needs to be done, and `tags` it a can be taken as a way
 
 ---
 
+# Example of how to make a request to the API
+
+For `POST` `PUT` `DELETE` requests, the API only accepts Header Content-Type → application / json
+
+##### Examples queries:
+
+curl http://localhost/API/tasks/read.php
+
+curl -d '{"task_name": "To buy soda", "tag_id": "1"}' -H "Content-Type: application/json" -X POST http://localhost/API/tasks/create.task.php
+
+curl -d '{"tag_name": "fruit products", "tag_color": "purple"}' -H "Content-Type: application/json" -X POST http://localhost/API/tags/create.php
+
+curl -d '{"task_id": "151"}' -H "Content-Type: application/json" -X DELETE http://localhost/API/tasks/delete.php
+
+curl -d '{"task_id": "98", "task_name": "To buy bread"}' -H "Content-Type: application/json" -X UPDATE http://localhost/API/tasks/update.php
+
+---
+
 Created by Kaloyan Ivanov
